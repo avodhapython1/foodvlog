@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<html>
+
+<head>
+    <title>AVODHA SHOPPING</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
+</head>
+<body>
+
+	<div class="container">
+	<!-- Top box -->
+		<!-- Logo & Site Name -->
+				<div id="tm-gallery-page-noodle" class="tm-gallery-page hidden">
+
+
+				</div> <!-- gallery page 3 -->
+			</div>
+					<div class="col-md-6">
+						<figure class="tm-description-figure">
+							<img src="{{pr.img.url}}" alt="Image" class="img-fluid" />
+						</figure>
+					</div>
+					<div class="col-md-6">
+						<div class="tm-description-box">
+							<h4 class="tm-gallery-title">{{pr.name}}</h4>
+							<p class="tm-mb-45">price: {{pr.price}}Rs</p><br>
+							<p class="tm-gallery-description">{{pr.desc}}</p><br>
+							<p class="tm-gallery-stock">stock: {{pr.stock}}</p>
+
+						{% if pr.stock <= 0 %}
+							<h1 style="color: red">Sorry. No stock left</h1>
+						{% else %}
+							<a href="{% url 'addcart' pr.id %}" class="tm-btn tm-btn-default tm-right">Add to Cart</a>
+						{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+
+	</div>
+	<script src="{% static 'pr/js/jquery.min.js' %}"></script>
+	<script src="{% static 'pr/js/parallax.min.js' %}"></script>
+	<script>
+		$(document).ready(function(){
+			// Handle click on paging links
+			$('.tm-paging-link').click(function(e){
+				e.preventDefault();
+
+				var page = $(this).text().toLowerCase();
+				$('.tm-gallery-page').addClass('hidden');
+				$('#tm-gallery-page-' + page).removeClass('hidden');
+				$('.tm-paging-link').removeClass('active');
+				$(this).addClass("active");
+			});
+		});
+	</script>
+</body>
+</html>
+{% endblock %}
